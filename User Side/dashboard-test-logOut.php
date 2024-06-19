@@ -15,7 +15,7 @@ class Logout {
         session_destroy();
 
         // Redirect to the homepage or any other page
-        header("Location: HomePage.php"); // Assuming HomePage.php is your homepage
+        header("Location: index.php"); // Assuming HomePage.php is your homepage
         exit;
     }
 }

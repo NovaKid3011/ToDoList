@@ -11,7 +11,7 @@ function login($user_id, $username, $role) {
 function logout() {
     session_unset();
     session_destroy();
-    header("Location: HomePage.php");
+    header("Location: index.php");
     exit;
 }
 
