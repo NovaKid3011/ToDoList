@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     $userId = $_GET['id'];
 
     // Prepare and execute the SQL statement
-    $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
+    $stmt = $conn->prepare("DELETE FROM users WHERE userID = ?");
     $stmt->bind_param("i", $userId);
 
     if ($stmt->execute()) {

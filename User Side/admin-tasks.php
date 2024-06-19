@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = $db->conn;
 
     // I-insert ang bagong task sa database
-    $sql = "INSERT INTO tasks (taskName, description) VALUES ('$taskName', '$taskDescription')";
+    $sql = "INSERT INTO tasks (title, description) VALUES ('$taskName', '$taskDescription')";
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
     } else {
@@ -75,14 +75,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td>" . $row["id"] . "</td>";
-                        echo "<td><a href='#' class='description-btn' data-bs-toggle='modal' data-bs-target='#viewTaskModal' data-id='" . $row["id"] . "'>" . (isset($row["title"]) ? $row["title"] : '') . "</a></td>";
+                        echo "<td>" . $row["task_id"] . "</td>";
+                        echo "<td><a href='#' class='description-btn' data-bs-toggle='modal' data-bs-target='#viewTaskModal' data-id='" . $row["task_id"] . "'>" . (isset($row["title"]) ? $row["title"] : '') . "</a></td>";
                         echo "<td>" . (isset($row["description"]) ? $row["description"] : '') . "</td>";
-                        echo "<td>" . (isset($row["dateCreated"]) ? $row["dateCreated"] : '') . "</td>";
+                        echo "<td>" . (isset($row["created_at"]) ? $row["created_at"] : '') . "</td>";
                         echo "<td><a href='" . (isset($row["files"]) ? $row["files"] : '') . "'>" . (isset($row["files"]) ? $row["files"] : '') . "</a></td>";
                         echo "<td>";
-                        echo "<button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#editTaskModal' data-id='" . $row["id"] . "' data-name='" . (isset($row["title"]) ? $row["title"] : '') . "' data-description='" . (isset($row["description"]) ? $row["description"] : '') . "'>Edit</button>";
-                        echo "<a href='delete_task.php?id=" . $row["id"] . "' class='btn btn-danger btn-sm'>Delete</a>";
+                        echo "<button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#editTaskModal' data-id='" . $row["task_id"] . "' data-name='" . (isset($row["title"]) ? $row["title"] : '') . "' data-description='" . (isset($row["description"]) ? $row["description"] : '') . "'>Edit</button>";
+                        echo "<a href='task-delete.php?id=" . $row["task_id"] . "' class='btn btn-danger btn-sm'>Delete</a>";
                         echo "</td>";
                         echo "</tr>";
 
@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <!-- Modals Container -->
-    <div class="modal-container">
+
         <!-- Add Task Modal -->
         <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -182,8 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

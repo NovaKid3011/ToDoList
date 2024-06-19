@@ -39,7 +39,7 @@ class Task {
 
     // Get all tasks
     public function getTasks() {
-    $sql = "SELECT task_id as id, title, description, dateCreated, files FROM tasks";
+    $sql = "SELECT task_id, title, description, created_at, files FROM tasks";
     try {
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
@@ -48,7 +48,7 @@ class Task {
         while ($row = $result->fetch_assoc()) {
             // Check existence of keys before outputting
             $task = [
-                'id' => $row['id'],
+                'id' => $row['task_id'],
                 'title' => isset($row['title']) ? $row['title'] : '',
                 'description' => isset($row['description']) ? $row['description'] : '',
                 'dateCreated' => isset($row['dateCreated']) ? $row['dateCreated'] : '',
@@ -78,11 +78,12 @@ class Task {
     }
 
     // Update task
-    public function updateTask($taskId, $title, $description, $file) {
-        $sql = "UPDATE tasks SET title = ?, description = ?, files = ? WHERE task_id = ?";
+    public function updateTask($taskId, $title, $description) {
+        $sql = "UPDATE tasks SET title = ?, description = ? WHERE task_id = ?";
+
         try {
             $stmt = $this->db->prepare($sql);
-            $stmt->bind_param('sssi', $title, $description, $file, $taskId);
+            $stmt->bind_param('ssi', $title, $description, $taskId);
             $stmt->execute();
             return $stmt->affected_rows > 0;
         } catch (Exception $e) {
@@ -91,4 +92,5 @@ class Task {
         }
     }
 }
+
 ?>

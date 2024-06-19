@@ -4,6 +4,7 @@ require_once 'Task.php'; // Import Tasks.php para magamit ang Task class
 include 'session.php'; // Import ng session.php file
 include 'dashboard-great-date.php';
 include 'dashboard-admin-menu.php';
+
 // Pag-check kung ang user ay naka-login sa isang page
 ensure_logged_in();
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : "Guest"; // Use a default value if not set
@@ -65,14 +66,6 @@ $tasks = $taskObj->getTasks();
             Account Settings
           </a>
 
-          <a href="#act-log">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-activity" width="15" height="15" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M3 12h4l3 8l4 -16l3 8h4" />
-            </svg>
-            Activity log
-          </a>
-
           <a href="#Print" id="printButton" onclick="printPage">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="15" height="15" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -101,9 +94,6 @@ $tasks = $taskObj->getTasks();
       <ul class="menu-items">
         <li class="item myTask">
           <a href="#myTask">My Task</a>
-        </li>
-        <li class="item important">
-          <a href="#important">Important</a>
         </li>
         <li class="item important">
             <?php 
@@ -139,10 +129,7 @@ $tasks = $taskObj->getTasks();
       <div class="dropdown"></div>
     </div>
 
-    <div id="important" style="display: none">
-      <h2>Important</h2>
-      <p>This is the Important section.</p>
-    </div>
+
     <div class="wrapper">
       <div class="column">
         <?php if (!empty($tasks)): ?> <!-- Check kung may mga tasks -->
@@ -162,9 +149,8 @@ $tasks = $taskObj->getTasks();
                         </div>
                     </div>
                     <div class="task-options">
-                        <i class="fa fa-edit" onclick="editTask(<?php echo $task['id']; ?>)" data-bs-toggle="modal" data-bs-target="#editTaskModal"></i>
-                        <i class="far fa-calendar-alt" onclick="changeDueDate(<?php echo $task['id']; ?>)" data-bs-toggle="modal" data-bs-target="#dueDateModal"></i>
-                        <i class="fa fa-trash" onclick="deleteTask(<?php echo $task['id']; ?>)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i>
+                        <i class="fa fa-edit" data-id="<?php echo $task['id'] ?>" data-bs-toggle="modal" data-bs-target="#editTaskModal"></i>
+                        <a href="task-delete.php?id=<?php echo $task['id'] ?>" onclick="confirm('Are you sure you want to delete.')"><i class="fa fa-trash"></i></a>
                     </div>
                 </div>
             </div>
@@ -212,9 +198,8 @@ $tasks = $taskObj->getTasks();
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form method="POST" id="editTaskForm" action="task-update.php"> 
-            <input type="hidden" name="action" value="edit"> <!-- Action for editing task -->
-            <input type="hidden" name="task_id" id="editTaskId"> <!-- Hidden input to store task ID -->
+          <form method="POST" id="editTaskForm" action="task-update.php?id=<?php echo $task['id'] ?>"> 
+            <input type="hidden" name="action" value="edit"> <!-- Action for editing task --> <!-- Hidden input to store task ID -->
             <div class="mb-3">
               <label for="editTaskTitle" class="form-label">Title</label>
               <input type="text" class="form-control" id="editTaskTitle" name="title" required>
@@ -231,7 +216,7 @@ $tasks = $taskObj->getTasks();
   </div>
 
   <!-- Confirm Delete Modal -->
- <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -251,6 +236,7 @@ $tasks = $taskObj->getTasks();
       </div>
     </div>
   </div>
+
 
   <!-- Add Task Modal -->
   <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">

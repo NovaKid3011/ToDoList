@@ -21,6 +21,7 @@ $currentRole = getCurrentUserRole();
 $taskObj = new Task();
 // Kumuhang lahat ng mga tasks mula sa database
 $tasks = $taskObj->getTasks();
+$username = $_SESSION['username'];
 ?>
 
 <!DOCTYPE html>
@@ -63,14 +64,6 @@ $tasks = $taskObj->getTasks();
             Account Settings
           </a>
 
-          <a href="#act-log">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-activity" width="15" height="15" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M3 12h4l3 8l4 -16l3 8h4" />
-            </svg>
-            Activity log
-          </a>
-
           <a href="#Print" id="printButton" onclick="printPage">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="15" height="15" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -110,7 +103,8 @@ $tasks = $taskObj->getTasks();
             <?php 
             $adminMenu = new AdminMenu($currentRole);
             $menuHtml = $adminMenu->generateMenu();
-            echo $menuHtml; ?>
+            echo $menuHtml;
+            ?>
         </li>
 
       </ul>
@@ -165,7 +159,7 @@ $tasks = $taskObj->getTasks();
                     <div class="task-options">
                         <i class="fa fa-edit" onclick="editTask(<?php echo $task['id']; ?>)" data-bs-toggle="modal" data-bs-target="#editTaskModal"></i>
                         <i class="far fa-calendar-alt" onclick="changeDueDate(<?php echo $task['id']; ?>)" data-bs-toggle="modal" data-bs-target="#dueDateModal"></i>
-                        <i class="fa fa-trash" onclick="deleteTask(<?php echo $task['id']; ?>)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i>
+                        <a href="task-delete?id=<?php echo $task['id'] ?>" onclick="confirm('Are you sure you want to delete.')"><i class="fa fa-trash" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i></a>
                     </div>
                 </div>
             </div>
@@ -213,7 +207,7 @@ $tasks = $taskObj->getTasks();
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form method="POST" id="editTaskForm" action=""> 
+          <form method="POST" id="editTaskForm" action="task-update.php"> 
             <input type="hidden" name="action" value="edit"> <!-- Action for editing task -->
             <input type="hidden" name="task_id" id="editTaskId"> <!-- Hidden input to store task ID -->
             <div class="mb-3">

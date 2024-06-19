@@ -6,11 +6,13 @@ $db = new Database(); // Assuming this initializes $conn correctly
 $conn = $db->conn;
 
 // Check if form was submitted via POST
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['task_id'], $_POST['title'], $_POST['description'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['title'], $_POST['description'])) {
     // Sanitize inputs if needed
-    $taskId = htmlspecialchars($_POST['task_id']);
+    $taskId = $_GET['id'];
     $title = htmlspecialchars($_POST['title']);
     $description = htmlspecialchars($_POST['description']);
+
+
     // Assuming other form fields like 'file' are handled appropriately
 
     // Create new Task instance

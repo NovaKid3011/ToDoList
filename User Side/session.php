@@ -26,7 +26,6 @@ function log_session($action) {
 
 function ensure_admin() {
     if (!isset($_SESSION['role']) || $_SESSION['role'] != 1) { // Admin role is 1
-        header("Location: SignIn_SignUp.php");
         exit;
     }
 }
@@ -40,5 +39,9 @@ function ensure_logged_in() {
 
 function getCurrentUserId() {
     return isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+}
+
+function getID($id){
+    $_SESSION['getID'] = $id;
 }
 ?>

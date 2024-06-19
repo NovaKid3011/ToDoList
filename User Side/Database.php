@@ -1,17 +1,17 @@
 <?php
 class Database {
-    private $conn;
+    public $conn;
 
     public function __construct() {
-        $this->connect();
-    }
+        $host = 'localhost';
+        $username = 'root'; // Replace with your actual username
+        $password = ''; // Replace with your actual password
+        $database = 'todolistdb'; // Replace with your actual database name
 
-    private function connect() {
-        $this->conn = new mysqli('localhost', 'root', '', 'todolistdb');
+        $this->conn = new mysqli($host, $username, $password, $database);
 
-        if ($this->conn->connect_errno) {
-            error_log("Failed to connect to MySQL: " . $this->conn->connect_error);
-            die('Connection failed: ' . $this->conn->connect_error);
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
         }
     }
 
@@ -19,9 +19,9 @@ class Database {
         return $this->conn->prepare($query);
     }
 
-    public function getConnection() {
-        return $this->conn;
+    public function query($query) {
+        return $this->conn->query($query);
     }
+
 }
 ?>
-

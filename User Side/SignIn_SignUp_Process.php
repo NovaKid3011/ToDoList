@@ -21,6 +21,7 @@ if (isset($_POST['signup'])) {
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
+    $image = $_FILES['image']['name'];
 
     if (!$email || !$password || !$username || $password !== $confirm_password) {
         header("Location: SignIn_SignUp.php?error=invalid_input");
@@ -31,16 +32,16 @@ if (isset($_POST['signup'])) {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Prepare SQL statement
-    $stmt = $conn->prepare("INSERT INTO users (userName, email, password, userRole) VALUES (?, ?, ?, 0)"); // Default role is user (0)
+    $stmt = $conn->prepare("INSERT INTO users (userName, email, password, photo, userRole) VALUES (?, ?, ?, ?, 0)"); // Default role is user (0)
     if (!$stmt) {
         handle_sql_error($conn, "Failed to prepare SQL statement for sign up.");
     }
 
-    $stmt->bind_param('sss', $username, $email, $hashed_password);
+    $stmt->bind_param('ssss', $username, $email, $hashed_password, $image);
 
     if ($stmt->execute()) {
         login($stmt->insert_id, $username, 0); // Default role is user (0)
-        header("Location: dashboard-test.php");
+        header("Location: SignIn_SignUp.php");
         exit;
     } else {
         handle_sql_error($conn, "Failed to execute SQL statement for sign up.");

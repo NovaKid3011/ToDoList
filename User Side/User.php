@@ -9,11 +9,11 @@ class User {
     }
 
     // Function para sa paggawa ng bagong user
-    public function createUser($username, $email, $password, $role) {
+    public function createUser($username, $email, $password, $role, $photo) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users (userName, email, password, userRole) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO users (userName, email, password, userRole, photo) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssss', $username, $email, $hashed_password, $role);
+        $stmt->bind_param('sssss', $username, $email, $hashed_password, $role, $photo);
         return $stmt->execute();
     }
 

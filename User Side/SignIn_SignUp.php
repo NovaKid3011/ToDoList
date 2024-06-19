@@ -70,6 +70,9 @@ session_start();
                             <input type="password" name="confirm_password" minlength="8" class="input-field" autocomplete="off" required>
                             <label>Confirm Password</label>
                         </div>
+                        <div class="input-wrap">
+                            <input type="file" name="image" class="input-field" autocomplete="off" required>
+                        </div>
                         <input type="submit" name="signup" value="Sign Up" class="sign-btn" />
                         <p class="text">
                             By signing up, I agree to the

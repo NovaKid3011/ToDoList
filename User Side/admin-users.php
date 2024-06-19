@@ -101,22 +101,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>";
-        if (isset($row['id'])) {
-            echo "<td><a href='#' class='description-btn' data-bs-toggle='modal' data-bs-target='#viewUserModal' data-id='" . $row['id'] . "'>" . $row['username'] . "</a></td>";
+        if (isset($row['userID'])) {
+            echo "<td><a href='#' class='description-btn' data-bs-toggle='modal' data-bs-target='#viewUserModal' data-id='" . $row['userID'] . "'>" . $row['userID'] . "</a></td>";
         } else {
             echo "<td>ID not found</td>";
         }
 
-                echo "</td>";
-                echo "<td><a href='#' class='description-btn' data-bs-toggle='modal' data-bs-target='#viewUserModal' data-id='" . $row['id'] . "'>" . $row['username'] . "</a></td>";
+                echo "<td><a href='#' class='description-btn' data-bs-toggle='modal' data-bs-target='#viewUserModal' data-id='" . $row['userID'] . "'>" . $row['userName'] . "</a></td>";
                 echo "<td>" . $row['email'] . "</td>";
                 echo "<td><img src='" . $row['photo'] . "' alt='Profile Photo' class='profile-photo'></td>";
-                echo "<td>" . ($row['role'] == 1 ? 'Admin' : 'User') . "</td>"; // Display role as Admin or User
+                echo "<td>" . ($row['userRole'] == 1 ? 'Admin' : 'User') . "</td>"; // Display role as Admin or User
                 echo "<td>" . $row['created_at'] . "</td>";
                 echo "<td>";
-                echo "<button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#editUserModal' data-id='" . $row['id'] . "' data-username='" . $row['username'] . "' data-email='" . $row['email'] . "' data-role='" . $row['role'] . "'>Edit</button> ";
-                echo "<a href='delete_user.php?id=" . $row['id'] . "' class='btn btn-danger btn-sm' onclick=\"return confirm('Are you sure you want to delete this user?');\">Delete</a>";
+                echo "<button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#editUserModal' data-id='" . $row['userID'] . "' data-username='" . $row['userName'] . "' data-email='" . $row['email'] . "' data-role='" . $row['userRole'] . "'>Edit</button> ";
+                echo "<a href='user-delete.php?id=" . $row['userID'] . "' class='btn btn-danger btn-sm' onclick=\"return confirm('Are you sure you want to delete this user?');\">Delete</a>";
                 echo "</td>";
                 echo "</tr>";
             }
@@ -181,8 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="user-update.php" enctype="multipart/form-data">
-                    <input type="hidden" id="editUserId" name="userId">
+                <form method="post" action="user-update.php?id=<?php echo $row['userID'] ?>" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="editUsername" class="form-label">Username</label>
                         <input type="text" class="form-control" id="editUsername" name="username" required>
@@ -190,10 +187,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="mb-3">
                 <label for="editUserEmail" class="form-label">Email</label>
                     <input type="email" class="form-control" id="editUserEmail" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="editUserPhoto" class="form-label">Photo</label>
-                    <input type="file" class="form-control" id="editUserPhoto" name="userPhoto" accept="image/*">
             </div>
             <div class="mb-3">
                 <label for="editUserRole" class="form-label">User Role</label>

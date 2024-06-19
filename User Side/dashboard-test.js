@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /// for account drop down
+document.getElementById("dropdown-icon").addEventListener("click", toggleAccount, false);
+
 function toggleAccount(event) {
 	var dropdownMenu = document.getElementById("dropdownMenu");
 	dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
@@ -93,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	});
 
-	const editTaskModalElement = document.getElementById("editTaskModal");
 	const editTaskForm = document.getElementById("editTaskForm");
 
 	// Function to handle editing task
@@ -248,3 +249,26 @@ document.querySelectorAll('.task-container').forEach(taskContainer => {
 			document.getElementById("modalTaskTitle").textContent = title;
 			document.getElementById("modalTaskDescription").textContent = description;
 		}
+
+let itemIdToDelete;
+
+function getID(itemId) {
+    itemIdToDelete = itemId;
+}
+
+document.getElementById('confirmDelete').addEventListener('click', function() {
+	fetch(`task-delete.php?id=${itemIdToDelete}`, {
+			method: 'DELETE'
+	})
+	.then(response => response.json())
+	.then(data => {
+			if (data.success) {
+					alert('Item deleted successfully');
+					closeModal();
+					// Optionally, remove the item from the DOM or refresh the page
+			} else {
+					alert('Failed to delete item');
+			}
+	})
+	.catch(error => console.error('Error:', error));
+});
