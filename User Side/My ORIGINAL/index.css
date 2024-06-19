@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Background color */
+}
+
+.container {
+    background-color: #fff; /* White background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    width: 400px; /* Adjusted width */
+    margin: auto;
+}
+
+.form-control {
+    border: none;
+    border-bottom: 2px solid #ced4da;
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    font-size: 14px; /* Adjusted font size */
+    padding: 10px 0; /* Adjusted padding */
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.form-control::placeholder {
+    color: transparent;
+}
+
+.form-control:focus::placeholder {
+    color: #495057;
+}
+
+.col-12 {
+    position: relative;
+}
+
+.col-12 input:focus ~ label {
+    top: -15px;
+    left: 0;
+    color: #007bff;
+    font-size: 12px;
+}
+
+.col-12 input:valid ~ label {
+    top: -15px;
+    left: 0;
+    color: #495057;
+    font-size: 12px;
+}
+
+.col-12 label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #ced4da;
+    transition: all 0.3s ease;
+}
+
+.password-alert {
+    display: none; /* Initially hidden */
+    font-size: 12px;
+    padding: 5px;
+    background-color: #ff7676;
+    border-radius: 5px;
+    margin-top: 5px;
+    height: 20px; /* Adjusted height */
+}
+
+.password-alert.show {
+    display: block; /* Show when triggered */
+}
+
+.btn {
+    width: 100%;
+    font-size: 16px; /* Adjusted font size */
+    padding: 10px; /* Adjusted padding */
+}
+
+.text-center {
+    font-size: 24px; /* Adjusted font size */
+    margin-bottom: 30px; /* Adjusted margin */
+}

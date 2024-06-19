@@ -1,0 +1,520 @@
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Arial", sans-serif;
+}
+.sidebar {
+	position: fixed;
+	height: 100%;
+	width: 213px; /* for sidebar width: 235 */
+	background: white;
+	padding: 10px; /* for sidebar width: 15 */
+	z-index: 99;
+	margin-left: 10px;
+	box-shadow: rgba(27, 25, 25, 0.5); /* Add box shadow */
+}
+#sidebar-icon {
+	position: absolute;
+	right: 15px;
+	top: 30px;
+	transform: translateY(-50%);
+}
+
+#sidebar-icon:hover, 
+#sidebar-icon-hide:hover {
+	background-color: rgba(43, 42, 42, 0.434);
+	border-radius: 50px;
+	padding: 2px;
+}
+
+.logo {
+	font-size: 25px;
+	top: 100px;
+	left: 30px;
+}
+.sidebar a {
+	color: black;
+	text-decoration: none;
+}
+
+.menu-content {
+	position: relative;
+	height: calc(100% - 40%); /* 100%*/
+	width: 100%;
+	margin-top: 10px; /* gap from motivea to .profile */
+	overflow-y: auto;
+}
+.menu-content::-webkit-scrollbar {
+	display: none;
+}
+.menu-items {
+	height: 100%;
+	width: 100%;
+	list-style: none;
+	transition: all 0.4s ease;
+	margin-top: 20px;
+	padding-left: 0px;
+}
+
+.item a,
+.submenu-item {
+	/* padding: 16px; */
+	display: inline-block;
+	width: 100%;
+	border-radius: 12px;
+	text-align: left;
+}
+.item i {
+	font-size: 12px;
+}
+.menu-items .item {
+    margin-bottom: 10px;
+}
+.menu-items .item a {
+    display: block;
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: #333;
+    text-decoration: none;
+    transition:  0.3s;
+}
+
+.menu-items .item a:hover {
+    background: rgba(24, 29, 181, 0.1);
+    color: #181db5;
+}
+.myTask a {
+    background: rgba(24, 29, 181, 0.1);
+    color: #181db5;
+}
+
+.important a:hover {
+    background: rgba(128, 128, 128, 0.1);
+    color: #808080;
+}
+.item a:hover {
+    background: rgba(39, 37, 37, 0.1);
+    color: #272525;
+}
+.item a:hover,
+.submenu-item:hover,
+.submenu .menu-title:hover {
+	background: rgba(39, 37, 37, 0.498);
+}
+.submenu-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: #120d0d;
+	cursor: pointer;
+}
+.submenu {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	right: calc(-100% - 26px);
+	height: calc(100% + 100vh);
+	background: #11101d;
+	display: none;
+}
+.show-submenu ~ .submenu {
+	display: block;
+}
+.submenu .menu-title {
+	border-radius: 12px;
+	cursor: pointer;
+}
+.submenu .menu-title i {
+	margin-right: 10px;
+}
+.navbar,
+.main {
+	left: 213px; /* for sidebar width: 260 */
+	width: calc(100% - 213px); /* for sidebar width: calc(100% - 260px) */
+	transition: all 0.5s ease;
+	z-index: 1000;
+	top: 0;
+}
+.sidebar.close ~ .navbar,
+.sidebar.close ~ .main {
+	left: 0;
+	width: 100%;
+}
+.navbar {
+	position: fixed;
+	color: #120d0d;
+	padding: 15px 20px;
+	font-size: 25px;
+	/* background: #4070f4; */
+	cursor: pointer;
+}
+
+.navbar #sidebar-icon {
+	cursor: pointer;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.main {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	padding: 20px;
+	z-index: 100;
+	background: lightblue;
+	margin-top: 0;
+	flex-direction: column;
+	transition: all 0.5s ease;
+}
+.main h1 {
+	color: #11101d;
+	font-size: 40px;
+	text-align: center;
+}
+
+#sidebar-icon-hide {
+	top: 20px;
+	left: 15px;
+	position: absolute;
+}
+
+.great-date {
+	position: absolute;
+	top: 20px; /* Adjust as needed */
+	left: 50px;
+	/* display: flex; */
+	transition: left 0.5 ease;
+}
+
+.great-date .great-user,
+.great-date .today {
+	color: black;
+	font-family: Arial, sans-serif; /* Use font-family property */
+	font-size: 20px;
+	margin-left: 10px;
+	transition: left 0.5 ease;
+}
+
+.sidebar.close + .main .great-date {
+	left: 50px; /* Adjusted position when sidebar is closed */
+	transition: left 0.5 ease;
+}
+
+.profile {
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
+}
+
+/* profile image */
+img.rounded {
+	border-radius: 50%; /* Make the image round */
+	width: 45px; /* Set the width */
+	height: 45px; /* Set the height */
+	object-fit: cover; /* Ensure the image covers the entire container */
+}
+
+a,
+img {
+	text-decoration: none;
+}
+
+span.username {
+	font-size: 13px;
+	font-weight: 600px;
+}
+
+image.rounded,
+.username,
+.dropdown-icon {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 5px;
+}
+
+.dropdown-menu {
+	position: absolute;
+	top: 40px; /* Adjust position as needed */
+	left: 0;
+	background: white; /* Background color */
+	border: 1px solid #ccc; /* Border */
+	border-radius: 8px; /* Rounded corners */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+	display: none; /* Hidden by default */
+	width: 100%; /* Full width */
+	z-index: 100; /* Ensure it appears above other elements */
+	padding: 0; /* Remove default padding */
+}
+
+.dropdown-menu a,
+.dropdown-menu button {
+	display: block; /* Block display for full width clickable area */
+	padding: 10px 20px; /* Padding */
+	color: black; /* Text color */
+	text-decoration: none; /* Remove underline */
+	background: none; /* Remove default button background */
+	border: none; /* Remove default button border */
+	text-align: left; /* Align text to the left */
+	width: 100%; /* Full width minus padding */
+	cursor: pointer; /* Pointer cursor */
+	font-size: 13px; /* Adjust font size */
+	font-family: inherit; /* Inherit font family */
+}
+
+.dropdown-menu a.logout {
+	border-top: 1px solid #eee; /* Separator above Logout */
+	border-bottom: 1px solid #eee;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu button:hover {
+	background: rgba(39, 37, 37, 0.05); /* Hover background color */
+	border-radius: 8px; /* Rounded corners on hover */
+}
+
+/* Styles for the buttons to be side by side */
+.buttons-container {
+	display: flex; /* Use flexbox for side-by-side layout */
+	justify-content: flex-start; /* Place buttons at the left */
+	padding: 10px 0; /* Padding */
+}
+
+.buttons-container button {
+	text-align: center; /* Center text */
+	padding: 5px 10px; /* Padding */
+	background: none; /* Remove default button background */
+	border: none; /* Remove default button border */
+	color: black; /* Text color */
+	font-size: 12px; /* Font size */
+	font-family: inherit; /* Inherit font family */
+	cursor: pointer; /* Pointer cursor */
+	margin-right: 5px; /* Add margin between buttons */
+}
+
+.buttons-container button:last-child {
+	margin-right: 0; /* Remove margin from the last button */
+}
+
+.buttons-container button:hover {
+	background: rgba(39, 37, 37, 0.05); /* Hover background color */
+	border-radius: 8px; /* Rounded corners on hover */
+}
+
+.create-list-btn {
+	padding: 10px; /* Adjusted padding */
+	width: 100%; /* Made button full-width */
+	border: none;
+	background-color: transparent; /* Removed default background */
+	color: blue;
+}
+
+.create-list-btn button {
+	color: blue;
+	width: 20px;
+	/* border-box:  */
+}
+
+.addNewList {
+	position: fixed; /* Keeps the element fixed relative to the viewport */
+	border: 2px solid grey;
+	width: 200px; /* Adjust width as needed */
+	background-color: lightblue;
+	bottom: 20px; /* Distance from the bottom of the viewport */
+	left: 50%; /* Center horizontally */
+	transform: translateX(-50%); /* Center horizontally */
+	padding: 10px 20px; /* Add padding for better appearance */
+	border-radius: 5px; /* Rounded corners for a minimalistic look */
+	text-align: center; /* Center align text */
+	cursor: pointer; /* Change cursor to pointer */
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+	transition: background-color 0.3s; /* Smooth transition for background color */
+	font-size: 18px; /* Larger text */
+	margin-top: 20px;
+}
+
+.addNewList:hover {
+	background-color: #87ceeb; /* Slightly darker blue on hover */
+}
+
+/* styles.css */
+body {
+	font-family: Arial, sans-serif;
+}
+
+.container {
+	max-width: 800px;
+	margin: auto;
+}
+
+.wrapper {
+	border-radius: 5px;
+	/* background-color: white; */
+	display: flex;
+	align-items: center;
+	margin-left: 10%; /* Adjusted margin-left */
+	width: 80%; /* Adjusted width */
+	max-width: 800px; /* Added max-width for responsiveness */
+	padding: 20px;
+} 
+
+.task-checkbox {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 2px solid #333;
+	margin-right: 5px;
+}
+.wrapper .column {
+	/* background: #f5f5f5;
+	border: 1px solid #ddd; */
+	border-radius: 5px;
+	padding: 20px;
+	flex-grow: 1; /* Grow to fill remaining space */
+
+}
+
+.wrapper .column-title {
+	margin: 0 0 10px 0;
+	font-size: 20px;
+	font-weight: 700;
+	color: #333;
+}
+
+.wrapper .task{
+  background: #fff;
+  /* border: 1px solid #ddd; */
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wrapper .task-title {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: #333;
+	display: flex;
+	gap: 20px;
+}
+.task {
+	flex: 1;
+	display: flex;
+	align-items: center;
+}
+/* .task-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); 
+  margin-bottom: 10px; 
+}
+.task-content {
+  display: flex;
+  align-items: center; 
+}
+
+.task-checkbox {
+  margin-right: 10px; 
+}
+.task-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.task-description {
+	font-size: 14px;
+	color: #555;
+	margin-top: 50px;
+	margin-left: 0px;
+	text-align: left;
+}
+
+.task-options {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-right: 10px;
+}
+
+.task-option i {
+    font-size: 16px;
+	cursor: pointer;
+	color: #333;
+	gap: 10px;
+}
+
+.task-options i:hover {
+  color: #000; 
+  font-size: 21px;
+} */
+.task-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 10px; /* Add space between tasks */
+    background-color: white; /* Ensure the task container has a white background */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); /* Optional: adds a subtle shadow */
+    padding: 10px;
+	margin: auto;
+	/* margin-top: ; */
+    margin-bottom: 200px; /* Adds space between tasks */
+	transition: all 0.5s ease;
+}
+
+.task-content {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    gap: 10px; /* Add space between checkbox and title */
+}
+
+.task-checkbox {
+    margin: 0; /* Reset margin to ensure proper alignment */
+}
+
+.task-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0; /* Remove default margin */
+}
+
+.task-description {
+    font-size: 14px;
+    color: #555;
+    margin: 0; /* Remove default margin */
+    text-align: left;
+}
+
+.task-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.task-options i {
+    font-size: 14px;
+    cursor: pointer;
+    color: #000;
+}
+
+.task-options i:hover {
+    color: #000; /* Icon color on hover */
+    font-size: 16px;
+}
+
+
+.hidden {
+	display: none;
+}
